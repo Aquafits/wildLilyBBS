@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>过程分析文档</title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write, pre { white-space: pre-wrap; }
+.CodeMirror, .md-fences, table { text-align: left; }
+.md-reset, a:active, a:hover { outline: 0px; }
+.md-reset, .md-toc-item a { text-decoration: none; }
+.MathJax_SVG, .md-reset { float: none; direction: ltr; }
+:root { --bg-color:#ffffff; --text-color:#333333; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+a.url { word-break: break-all; }
+.in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
+#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
+.first-line-indent #write p .md-line { text-indent: 0px; }
+.first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+#write > figure:first-child { margin-top: 16px; }
+figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
+.CodeMirror-line, .md-fences { break-inside: avoid; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; margin-right: 4px; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; background: 0px 0px; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; }
+.md-toc-inner, a img, img a { cursor: pointer; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { white-space: pre-wrap; margin-top: 0.714em; font-size: 0.7em; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > img:only-child { display: block; margin: auto; }
+.md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, tt { font-family: var(--monospace); }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+
+
+:root { --side-bar-bg-color: #fafafa; --control-text-color: #777; }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: normal; src: local("Open Sans Regular"), url("./github/400.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: normal; src: local("Open Sans Italic"), url("./github/400i.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: bold; src: local("Open Sans Bold"), url("./github/700.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: bold; src: local("Open Sans Bold Italic"), url("./github/700i.woff") format("woff"); }
+html { font-size: 16px; }
+body { font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
+#write { max-width: 860px; margin: 0px auto; padding: 20px 30px 100px; }
+#write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
+body > :first-child { margin-top: 0px !important; }
+body > :last-child { margin-bottom: 0px !important; }
+a { color: rgb(65, 131, 196); }
+h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
+h1 tt, h1 code { font-size: inherit; }
+h2 tt, h2 code { font-size: inherit; }
+h3 tt, h3 code { font-size: inherit; }
+h4 tt, h4 code { font-size: inherit; }
+h5 tt, h5 code { font-size: inherit; }
+h6 tt, h6 code { font-size: inherit; }
+h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
+h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
+h3 { font-size: 1.5em; line-height: 1.43; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: rgb(119, 119, 119); }
+p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
+li > ol, li > ul { margin: 0px; }
+hr { height: 4px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border-width: 0px 0px 1px; border-style: none none solid; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; overflow: hidden; box-sizing: content-box; border-bottom-color: rgb(221, 221, 221); }
+body > h2:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child + h2 { margin-top: 0px; padding-top: 0px; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child { margin-top: 0px; padding-top: 0px; }
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 { margin-top: 0px; padding-top: 0px; }
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p { margin-top: 0px; }
+li p.first { display: inline-block; }
+ul, ol { padding-left: 30px; }
+ul:first-child, ol:first-child { margin-top: 0px; }
+ul:last-child, ol:last-child { margin-bottom: 0px; }
+blockquote { border-left: 4px solid rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote blockquote { padding-right: 0px; }
+table { padding: 0px; word-break: initial; }
+table tr { border-top: 1px solid rgb(204, 204, 204); margin: 0px; padding: 0px; }
+table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(204, 204, 204); border-right-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr th:first-child, table tr td:first-child { margin-top: 0px; }
+table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); }
+.md-fences, code, tt { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
+.md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
+.md-task-list-item > input { margin-left: -1.3em; }
+@media screen and (min-width: 914px) {
+}
+@media print {
+  html { font-size: 13px; }
+  table, pre { break-inside: avoid; }
+  pre { word-wrap: break-word; }
+}
+.md-fences { background-color: rgb(248, 248, 248); }
+#write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
+.mathjax-block > .code-tooltip { bottom: 0.375rem; }
+#write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
+#write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+.md-image > .md-meta { border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
+.md-tag { color: inherit; }
+.md-toc { margin-top: 20px; padding-bottom: 20px; }
+.sidebar-tabs { border-bottom: none; }
+#typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
+#typora-quick-open-item { background-color: rgb(250, 250, 250); border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; }
+#md-notification::before { top: 10px; }
+.on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.12); }
+header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Arial, sans-serif; }
+.file-node-content:hover .file-node-icon, .file-node-content:hover .file-node-open-state { visibility: visible; }
+.mac-seamless-mode #typora-sidebar { background-color: var(--side-bar-bg-color); }
+.md-lang { color: rgb(180, 101, 77); }
+.html-for-mac .context-menu { --item-hover-bg-color: #E6F0FE; }
+
+
+
+
+
+ .typora-export p, .typora-export .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><h1><a name='header-n2295' class='md-header-anchor '></a>过程分析文档</h1><blockquote><p>乔鑫，秦岭，秦天一，邱浩旻</p></blockquote><h2><a name='header-n2300' class='md-header-anchor '></a>目录</h2><div class='md-toc' mdtype='toc'><p class="md-toc-content"><span class="md-toc-item md-toc-h1" data-ref="n2295"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2295">过程分析文档</a></span><span class="md-toc-item md-toc-h2" data-ref="n2300"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2300">目录</a></span><span class="md-toc-item md-toc-h2" data-ref="n2302"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2302">修订历史</a></span><span class="md-toc-item md-toc-h2" data-ref="n2322"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2322">1 问题分析</a></span><span class="md-toc-item md-toc-h3" data-ref="n2323"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2323">1.1 问题域资料</a></span><span class="md-toc-item md-toc-h3" data-ref="n2328"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2328">1.2 涉众分析</a></span><span class="md-toc-item md-toc-h3" data-ref="n2351"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2351">1.3 获取问题</a></span><span class="md-toc-item md-toc-h4" data-ref="n2354"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2354">1.3.1 获取的问题</a></span><span class="md-toc-item md-toc-h3" data-ref="n2368"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2368">1.4 明确问题</a></span><span class="md-toc-item md-toc-h4" data-ref="n2371"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2371">1.4.1 没有用户的个性化推荐首页</a></span><span class="md-toc-item md-toc-h4" data-ref="n2388"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2388">1.4.2 没有清晰的板块分类</a></span><span class="md-toc-item md-toc-h4" data-ref="n2405"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2405">1.4.3 界面不美观、没有层次性</a></span><span class="md-toc-item md-toc-h4" data-ref="n2422"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2422">1.4.4 没有官方移动端应用</a></span><span class="md-toc-item md-toc-h3" data-ref="n2439"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2439">1.5 发现业务需求</a></span><span class="md-toc-item md-toc-h4" data-ref="n2440"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2440">1.5.1 针对没有用户的个性化推荐首页</a></span><span class="md-toc-item md-toc-h4" data-ref="n2460"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2460">1.5.2 针对没有清晰的板块分类</a></span><span class="md-toc-item md-toc-h4" data-ref="n2480"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2480">1.5.3 针对界面不美观、没有层次性</a></span><span class="md-toc-item md-toc-h4" data-ref="n2500"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2500">1.5.4 针对没有官方移动端应用</a></span><span class="md-toc-item md-toc-h4" data-ref="n2520"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2520">1.5.5 业务需求汇总</a></span><span class="md-toc-item md-toc-h3" data-ref="n2540"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2540">1.6 确定高层次解决方案</a></span><span class="md-toc-item md-toc-h4" data-ref="n2559"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2559">1.6.1 P1的解决方案</a></span><span class="md-toc-item md-toc-h5" data-ref="n2560"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2560">1.6.1.1 S1</a></span><span class="md-toc-item md-toc-h5" data-ref="n2570"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2570">1.6.1.2 S2</a></span><span class="md-toc-item md-toc-h5" data-ref="n2580"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2580">1.6.1.3 S3</a></span><span class="md-toc-item md-toc-h3" data-ref="n2590"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2590">1.6.2 P2的解决方案</a></span><span class="md-toc-item md-toc-h5" data-ref="n2591"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2591">1.6.2.1 S4</a></span><span class="md-toc-item md-toc-h5" data-ref="n2601"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2601">1.6.2.2 S5</a></span><span class="md-toc-item md-toc-h3" data-ref="n2611"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2611">1.6.3 P3的解决方案</a></span><span class="md-toc-item md-toc-h5" data-ref="n2612"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2612">1.6.3.1 S6</a></span><span class="md-toc-item md-toc-h3" data-ref="n2622"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2622">1.6.4 P4的解决方案</a></span><span class="md-toc-item md-toc-h5" data-ref="n2623"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2623">1.6.4.1 S7</a></span><span class="md-toc-item md-toc-h5" data-ref="n2633"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2633">1.6.4.2 S8</a></span><span class="md-toc-item md-toc-h3" data-ref="n2643"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2643">1.7 确定解决方案的系统特性和边界</a></span><span class="md-toc-item md-toc-h4" data-ref="n2664"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2664">1.7.1 问题P1的上下文图</a></span><span class="md-toc-item md-toc-h4" data-ref="n2667"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2667">1.7.2 问题P2的上下文图</a></span><span class="md-toc-item md-toc-h4" data-ref="n2670"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2670">1.7.3 问题P3的上下文图</a></span><span class="md-toc-item md-toc-h4" data-ref="n2673"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2673">1.7.4 问题P4的上下文图</a></span><span class="md-toc-item md-toc-h3" data-ref="n2676"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2676">1.8 确定解决方案的约束</a></span><span class="md-toc-item md-toc-h4" data-ref="n2677"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2677">1.8.1 P1的约束</a></span><span class="md-toc-item md-toc-h4" data-ref="n2687"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2687">1.8.2 P2的约束</a></span><span class="md-toc-item md-toc-h4" data-ref="n2701"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2701">1.8.3 P3的约束</a></span><span class="md-toc-item md-toc-h4" data-ref="n2711"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2711">1.8.4 P4的约束</a></span><span class="md-toc-item md-toc-h3" data-ref="n2721"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2721">1.9 确定系统特性</a></span><span class="md-toc-item md-toc-h3" data-ref="n2734"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2734">1.10 确定系统边界</a></span><span class="md-toc-item md-toc-h4" data-ref="n2735"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2735">1.10.1 系统上下文图</a></span><span class="md-toc-item md-toc-h4" data-ref="n2738"><a class="md-toc-inner" style="cursor: pointer;" href="#header-n2738">1.10.2 系统用例图</a></span></p></div><h2><a name='header-n2302' class='md-header-anchor '></a>修订历史</h2><figure><table><thead><tr><th>人员</th><th>版本</th><th>备注</th></tr></thead><tbody><tr><td>邱浩旻</td><td>v0.0.1</td><td>新增过程文档初步框架</td></tr><tr><td>乔鑫，秦天一，邱浩旻</td><td>v1.0.0</td><td>完成过程文档1.0.0</td></tr></tbody></table></figure><p>&nbsp;</p><h2><a name='header-n2322' class='md-header-anchor '></a>1 问题分析</h2><h3><a name='header-n2323' class='md-header-anchor '></a>1.1 问题域资料</h3><p>南京大学小百合BBS是南京大学师生最常使用的一个半官方性质的BBS，由于网站UI管理问题，虽然BBS有私信功能，但发帖人和回帖人不能较为方便及时地和对方进行交流；小百合BBS也推出过手机app，但由于不是官方管理和维护，无法达到其他交流平台的实时沟通功能。 同时兴起的一个用于校内交流互动的方式是QQ空间衍生出的表白墙，表白墙由专人管理账户，统一接收由所有学生私信的投稿，但由于发送投稿过多，发送的信息无法通过分类发送，只有一个简单的时间线来查看历史信息，虽然有了以QQ整个大背景下实现的实时沟通交流，但一旦错过了某条与自己相关、或是感兴趣的信息，就需要花费极大的精力来找到投稿人的相关信息。 希望有一个信息交流平台能够承接这两个使用较多平台的功能，同时达到软件实现千人千面的想法。 </p><p>当前，在小百合BBS和表白墙两个广泛使用的信息交流平台都有着不同的缺点和弊病，也有互相学习和借鉴的地方，同时都缺少用户的个性化推荐的实现。</p><h3><a name='header-n2328' class='md-header-anchor '></a>1.2 涉众分析</h3><figure><table><thead><tr><th>涉众</th><th>特征</th><th>主要目标</th><th>态度</th><th>主要关注点</th><th>约束条件</th></tr></thead><tbody><tr><td>系统管理员</td><td>用户账号的维护管理、用户帖子的审核和管理</td><td>维护社区环境</td><td>不明</td><td>方便且高效处理不良的帖子和违规的用户</td><td>无</td></tr><tr><td>系统用户</td><td>发表包含咨询，求助和交友内容的帖子，在帖子下方评论或回复评论，关注用户和私信聊天等</td><td>参与社区讨论</td><td>积极</td><td>方便地获取感兴趣的帖子，并且和其他用户交流</td><td>无</td></tr></tbody></table></figure><h3><a name='header-n2351' class='md-header-anchor '></a>1.3 获取问题</h3><p>对于登录、注册、发帖、回帖和删帖，小百合和类似的表白墙已经在相关问题上给出了他们的解决方案，我们决定在问题获取阶段只关注新增的问题。</p><h4><a name='header-n2354' class='md-header-anchor '></a>1.3.1 获取的问题</h4><ul><li>小百合和表白墙都没有对用户个性化推荐生成的首页，导致用户寻找感兴趣的内容耗时过长；</li><li>小百合和表白墙都没有清晰的板块分类，导致用户寻找特定内容耗时过长；</li><li>小百合没有美观、层次清晰的界面，导致用户不愿意使用；</li><li>小百合没有官方移动端应用，导致用户不愿意使用，且即时交流效率降低；</li></ul><h3><a name='header-n2368' class='md-header-anchor '></a>1.4 明确问题</h3><p>交流之后，我们提炼了四个主要的高层次问题，采用如下标准化的格式进行描述， 并在涉众之间取得了认同。 </p><h4><a name='header-n2371' class='md-header-anchor '></a>1.4.1 没有用户的个性化推荐首页</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P1</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有用户的个性化推荐首页</td></tr><tr><td>影响</td><td>无法直接给经常浏览相关内容的用户进行推送，导致用户寻找感兴趣内容耗时过长</td></tr></tbody></table></figure><h4><a name='header-n2388' class='md-header-anchor '></a>1.4.2 没有清晰的板块分类</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P2</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有清晰的板块分类</td></tr><tr><td>影响</td><td>信息杂乱，用户寻找特定类型内容会消耗大量时间</td></tr></tbody></table></figure><h4><a name='header-n2405' class='md-header-anchor '></a>1.4.3 界面不美观、没有层次性</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P3</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>界面不美观、没有层次性</td></tr><tr><td>影响</td><td>用户使用度降低</td></tr></tbody></table></figure><h4><a name='header-n2422' class='md-header-anchor '></a>1.4.4 没有官方移动端应用</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P4</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有官方移动端应用</td></tr><tr><td>影响</td><td>用户不愿使用，实时交流效率降低</td></tr></tbody></table></figure><h3><a name='header-n2439' class='md-header-anchor '></a>1.5 发现业务需求</h3><h4><a name='header-n2440' class='md-header-anchor '></a>1.5.1 针对没有用户的个性化推荐首页</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P1</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有用户的个性化推荐首页</td></tr><tr><td>影响</td><td>无法直接给经常浏览相关内容的用户进行推送，导致用户寻找感兴趣内容耗时过长</td></tr><tr><td>目标</td><td>提供用户的个性化首页，系统投入运营3个月后，个性化首页的推荐转化率达3%，全站浏览量较小百合和表白墙的均值上升5%</td></tr></tbody></table></figure><h4><a name='header-n2460' class='md-header-anchor '></a>1.5.2 针对没有清晰的板块分类</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P2</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有清晰的板块分类</td></tr><tr><td>影响</td><td>信息杂乱，用户寻找特定类型内容会消耗大量时间</td></tr><tr><td>目标</td><td>提供内置的板块分类，系统投入运营3个月后，除各院系自有的分区外，其他分区共不超过15个，各分区首页移动端转化率达5%，全站浏览量较小百合和表白墙的均值上升5%</td></tr></tbody></table></figure><h4><a name='header-n2480' class='md-header-anchor '></a>1.5.3 针对界面不美观、没有层次性</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P3</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>界面不美观、没有层次性</td></tr><tr><td>影响</td><td>用户使用度降低</td></tr><tr><td>目标</td><td>提供美观的PC端和移动端界面，系统投入运营3个月后，活跃用户数较小百合上升10%，用户在线时长较小百合上升10%，全站浏览量较小百合和表白墙的均值上升5%</td></tr></tbody></table></figure><h4><a name='header-n2500' class='md-header-anchor '></a>1.5.4 针对没有官方移动端应用</h4><figure><table><thead><tr><th>要素</th><th>内容</th></tr></thead><tbody><tr><td>ID</td><td>P4</td></tr><tr><td>提出者</td><td>用户</td></tr><tr><td>问题</td><td>没有官方移动端应用</td></tr><tr><td>影响</td><td>用户不愿使用，即时交流效率降低</td></tr><tr><td>目标</td><td>提供官方移动端应用，系统投入运营3个月后，活跃用户数较小百合上升10%，用户在线时长较小百合上升10%，全站浏览量较小百合和表白墙的均值上升5%</td></tr></tbody></table></figure><h4><a name='header-n2520' class='md-header-anchor '></a>1.5.5 业务需求汇总</h4><ul><li>BR1:系统投入运营3个月后，个性化首页的推荐转化率达3%</li><li>BR2: 系统投入运营3个月后，除各院系自有的分区外，其他分区共不超过15个</li><li>BR3: 系统投入运营3个月后，各分区首页移动端转化率达5%</li><li>BR4: 系统投入运营3个月后，活跃用户数较小百合上升10%</li><li>BR5: 系统投入运营3个月后，用户在线时长较小百合上升10%</li><li>BR6: 系统投入运营3个月后，全站浏览量较小百合和表白墙的均值上升5%</li></ul><h3><a name='header-n2540' class='md-header-anchor '></a>1.6 确定高层次解决方案</h3><figure><table><thead><tr><th>问题</th><th>解决方案</th></tr></thead><tbody><tr><td>P1</td><td>S1: 通过记录用户的的浏览的历史帖子，分析用户偏好，生成个性化推荐的首页<br>S2: 在首页各帖子入口增加“不感兴趣”的选项，细化用户偏好，生成个性化推荐的首页<br>S3: 在首页上推荐最近一周的热门帖子</td></tr><tr><td>P2</td><td>S4: 内置各院系板块和生活、求职、交友、二手市场、失物招领、校长信箱6个板块，管理员在不超过板块上限的情况下可根据用户反馈增辟板块<br>S5: 板块内部根据用户偏好，生成个性化的板块主页</td></tr><tr><td>P3</td><td>S6: 使用Material Design风格，参照哔哩哔哩和知乎的设计重新设计交互</td></tr><tr><td>P4</td><td>S7: 开发Web、iOS和Android三平台应用<br>S8: 实现即时通讯功能</td></tr></tbody></table></figure><p>接着，我们与客户召开了第二次面谈，为每个问题的几种解决方案协商取得一致意见。通过此次面谈和探讨，开发人员和客户对每个问题都共同确定了以下高层次解决方案： <br/></p><h4><a name='header-n2559' class='md-header-anchor '></a>1.6.1 P1的解决方案</h4><h5><a name='header-n2560' class='md-header-anchor '></a>1.6.1.1 S1</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>通过记录用户的的浏览的历史帖子，分析用户偏好，生成个性化推荐的首页</td><td>直接给经常浏览相关内容的用户进行推送，减少用户获取感兴趣内容时间</td><td>对用户感兴趣内容判断可能不准确，会降低用户的满意度，对系统算力有负载，会产生代价</td></tr></tbody></table></figure><h5><a name='header-n2570' class='md-header-anchor '></a>1.6.1.2 S2</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>在首页各帖子入口增加“不感兴趣”的选项，细化用户偏好，生成个性化推荐的首页</td><td>直接给经常浏览相关内容的用户进行推送，减少用户获取感兴趣内容时间</td><td>对系统算力有负载，会产生代价</td></tr></tbody></table></figure><h5><a name='header-n2580' class='md-header-anchor '></a>1.6.1.3 S3</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>在首页上推荐最近一周的热门帖子</td><td>直接给用户推送热门帖子</td><td>用户可能对热门帖子不感兴趣，会降低用户的满意度，产生代价</td></tr></tbody></table></figure><h3><a name='header-n2590' class='md-header-anchor '></a>1.6.2 P2的解决方案</h3><h5><a name='header-n2591' class='md-header-anchor '></a>1.6.2.1 S4</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>内置各院系板块和生活、求职、交友、二手市场、失物招领、校长信箱6个板块，管理员在不超过板块上限的情况下可根据用户反馈增辟板块</td><td>直接给用户进行板块分类，便于用户查找相关帖子</td><td>用户可能对板块分类不满意，会降低用户的满意度，产生代价</td></tr></tbody></table></figure><h5><a name='header-n2601' class='md-header-anchor '></a>1.6.2.2 S5</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>板块内部根据用户偏好，生成个性化的板块主页</td><td>直接给经常浏览相关内容的用户进行推送，减少用户获取感兴趣内容时间</td><td>对用户感兴趣内容判断可能不准确，会降低用户的满意度，对系统算力有负载，会产生代价</td></tr></tbody></table></figure><h3><a name='header-n2611' class='md-header-anchor '></a>1.6.3 P3的解决方案</h3><h5><a name='header-n2612' class='md-header-anchor '></a>1.6.3.1 S6</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>使用Material Design风格，参照哔哩哔哩和知乎的设计重新设计交互</td><td>用户不用重新形成使用习惯，提高用户体验</td><td>用户可能对交互流程不够满意，会降低用户的满意度，产生代价</td></tr></tbody></table></figure><h3><a name='header-n2622' class='md-header-anchor '></a>1.6.4 P4的解决方案</h3><h5><a name='header-n2623' class='md-header-anchor '></a>1.6.4.1 S7</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>开发Web、iOS和Android三平台应用</td><td>覆盖大部分目标用户，提供无缝体验</td><td>开发成本提高，产生代价</td></tr></tbody></table></figure><h5><a name='header-n2633' class='md-header-anchor '></a>1.6.4.2 S8</h5><figure><table><thead><tr><th>方案描述</th><th>业务优势</th><th>代价</th></tr></thead><tbody><tr><td>实现即时通讯功能</td><td>实现用户间的直接联系</td><td>系统因为需应对大量消息，而产生代价</td></tr></tbody></table></figure><h3><a name='header-n2643' class='md-header-anchor '></a>1.7 确定解决方案的系统特性和边界</h3><p>在选定解决方案之后，我们进一步明确了该解决方案需要具备的功能特征，即系统特征：<br/></p><figure><table><thead><tr><th>问题</th><th>系统特性</th></tr></thead><tbody><tr><td>P1</td><td>1.系统记录用户帖子浏览历史<br>2.系统记录用户不感兴趣的帖子<br>3.系统记录一周帖子浏览量<br>4.系统根据用户浏览情况生成用户偏好<br>5.系统根据用户偏好和帖子热度提供个性化推荐的首页</td></tr><tr><td>P2</td><td>6.系统内置各院系板块和生活、求职、交友、二手市场、失物招领、校长信箱6个板块<br>7.系统允许管理员在不超过板块上限的情况下可根据用户反馈增辟板块<br>8.系统根据用户偏好和帖子热度提供个性化板块主页</td></tr><tr><td>P3</td><td>9.系统采用Material Design风格</td></tr><tr><td>P4</td><td>10.系统提供Web、iOS和Android三平台应用<br>11.系统实现即时通讯功能</td></tr></tbody></table></figure><p>然后根据这些功能特征，分析解决方案需要和周围环境形成的交互作用，定义解决方案的边界。解决方案的边界确定了信息流的输入输出关系：</p><h4><a name='header-n2664' class='md-header-anchor '></a>1.7.1 问题P1的上下文图</h4><p><img src='E:\QQFiles\34900270\FileRecv\问题P1的上下文图.png' alt='问题P1的上下文图' referrerPolicy='no-referrer' /></p><h4><a name='header-n2667' class='md-header-anchor '></a>1.7.2 问题P2的上下文图</h4><p><img src='E:\QQFiles\34900270\FileRecv\问题P2的上下文图.png' alt='问题P2的上下文图' referrerPolicy='no-referrer' /></p><h4><a name='header-n2670' class='md-header-anchor '></a>1.7.3 问题P3的上下文图</h4><p><img src='E:\QQFiles\34900270\FileRecv\问题P3的上下文图.png' alt='问题P3的上下文图' referrerPolicy='no-referrer' /></p><h4><a name='header-n2673' class='md-header-anchor '></a>1.7.4 问题P4的上下文图</h4><p><img src='E:\QQFiles\34900270\FileRecv\问题P4的上下文图.1.png' alt='问题P4的上下文图.1' referrerPolicy='no-referrer' /></p><h3><a name='header-n2676' class='md-header-anchor '></a>1.8 确定解决方案的约束</h3><h4><a name='header-n2677' class='md-header-anchor '></a>1.8.1 P1的约束</h4><figure><table><thead><tr><th>约束源</th><th>约束</th><th>理由</th></tr></thead><tbody><tr><td>技术</td><td>C1 使用Redis和Mysql数据库</td><td>访问速度快，符合互联网发展趋势</td></tr></tbody></table></figure><h4><a name='header-n2687' class='md-header-anchor '></a>1.8.2 P2的约束</h4><figure><table><thead><tr><th>约束源</th><th>约束</th><th>理由</th></tr></thead><tbody><tr><td>技术</td><td>C1 使用Redis和Mysql数据库</td><td>访问速度快，符合互联网发展趋势</td></tr><tr><td>行政</td><td>C2 管理员决定板块分类情况</td><td>满足用户需求同时精简板块分类</td></tr></tbody></table></figure><h4><a name='header-n2701' class='md-header-anchor '></a>1.8.3 P3的约束</h4><figure><table><thead><tr><th>约束源</th><th>约束</th><th>理由</th></tr></thead><tbody><tr><td>技术</td><td>C3 良好的人机交互界面</td><td>提高用户体验</td></tr></tbody></table></figure><h4><a name='header-n2711' class='md-header-anchor '></a>1.8.4 P4的约束</h4><figure><table><thead><tr><th>约束源</th><th>约束</th><th>理由</th></tr></thead><tbody><tr><td>技术</td><td>C4 使用Netty框架</td><td>保证消息的即时性</td></tr></tbody></table></figure><h3><a name='header-n2721' class='md-header-anchor '></a>1.9 确定系统特性</h3><p>SF1.系统记录用户帖子浏览历史
+SF2.系统记录用户不感兴趣的帖子
+SF3.系统记录一周帖子浏览量
+SF4.系统根据用户浏览情况生成用户偏好
+SF5.系统根据用户偏好和帖子热度提供个性化推荐的首页 
+SF6.系统内置各院系板块和生活、求职、交友、二手市场、失物招领、校长信箱6个板块
+SF7.系统允许管理员在不超过板块上限的情况下可根据用户反馈增辟板块
+SF8.系统根据用户偏好和帖子热度提供个性化板块主页
+SF9.系统采用Material Design风格
+SF10.系统提供Web、iOS和Android三平台应用
+SF11.系统实现即时通讯功能</p><h3><a name='header-n2734' class='md-header-anchor '></a>1.10 确定系统边界</h3><h4><a name='header-n2735' class='md-header-anchor '></a>1.10.1 系统上下文图</h4><p><img src='E:\QQFiles\34900270\FileRecv\问题汇总上下文图.png' alt='问题汇总上下文图' referrerPolicy='no-referrer' /></p><h4><a name='header-n2738' class='md-header-anchor '></a>1.10.2 系统用例图</h4><p><img src='C:\Users\34900\Downloads\系统用例图.png' alt='系统用例图' referrerPolicy='no-referrer' /></p></div>
+</body>
+</html>
